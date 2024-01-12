@@ -1,61 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import axios from 'axios'
-import Cards from './Components/Cards';
-import Navbar from './Components/Navbar';
+import {Routes,Route,Link, Outlet} from 'react-router-dom';
+import Layout from './Components/Layout';
+import Home from './Pages/Home'
+import CountryList from './Pages/CountryList';
+import LiveScore from './Pages/LiveScore';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
-  const [cricketData, setCricketData] = useState([])
-  const [matchType, setMatchType] = useState("odi")
 
-
-  useEffect(()=>{
-        axios.get("https://api.cricapi.com/v1/currentMatches?apikey=49917bab-f51e-4d67-8ad3-00896121a40b&offset=0"
-        ).then((info)=>{
-          const singleType = info.data.data.filter((type)=>{
-            return type.matchType == matchType;
-          })
-          if(matchType != "all")
-          {
-            setCricketData(singleType)
-          }
-          else
-          {
-            setCricketData(info.data.data)
-          }
-        }).catch((err)=>{
-          console.log(err);
-        })
-  },[matchType]);
-
-
-  
 
   return (
     <div className="App">
-      <Navbar />
-      <h1 className='text-center text-white bg-success'> {matchType.toLocaleUpperCase()} </h1>
-      <label className='text-white ms-3' for="mType">Match Type</label> <br/>
-        <select className='ms-3' name="mType" id="mType" value={matchType} onChange={(e)=>setMatchType(e.target.value)}>
-          <option value="odi">ODI</option>
-          <option value="test">TEST</option>
-          <option value="t20">T20</option>
-          <option value="all">ALL</option>
-        </select>
-      <div id="box">
-
-        {
-          cricketData.map((cricks,index,arr)=>{
-             return (
-             <Cards key={index} name={cricks.name} date={cricks.date} matchType={cricks.matchType}
-              status={cricks.status} teamInfo={cricks.teamInfo} vanue={cricks.venue}  
-              score={cricks.score}
-              />
-              )
-            })
-        }
+      <Routes>
+        <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="liveScore" element={<LiveScore />} />
+        <Route path="countryList" element={<CountryList />} />
+        <Route path="dashboard" element={<Dashboard />}>
           
-      </div>
+          <Route path='task' element={
+             <div>
+                <div className="sidebar sidebar2">
+                <Link className="active" to="/dashboard/task/task1">Task 1</Link>
+                <Link to="/dashboard/task/task2">Task 2</Link>
+                </div>
+                <Outlet />
+             </div>
+          }>
+            <Route path='task1' element={<div className="content">Task 1</div>}/>
+            <Route path='task2' element={<div className="content">Task 2</div>}/>
+          </Route>
+
+          <Route path='news' element={
+             <div>
+                <div className="sidebar sidebar2">
+                <Link className="active" to="/dashboard/news/news1">News1</Link>
+                <Link to="/dashboard/news/news2">News2</Link>
+                </div>
+                <Outlet />
+              </div>
+          }>
+            <Route path='news1' element={<div className='content'> News 1 </div>}/>
+            <Route path='news2' element={<div className='content'> News 2 </div>}/>
+          </Route>
+          
+          <Route path='portfolio' element={
+            <div>
+                <div className="sidebar sidebar2">
+                <Link className="active" to="/dashboard/portfolio/portfolio1">Portfolio1</Link>
+                <Link to="/dashboard/portfolio/portfolio2">Portfolio2</Link>
+                </div>
+                <Outlet />
+            </div>
+          }>
+            <Route path='portfolio1' element={<div className='content'> Portfolio 1 </div>}/>
+            <Route path='portfolio2' element={<div className='content'> Portfolio 2 </div>}/>
+          </Route>
+
+          </Route>
+        </Route>
+      </Routes>
     </div>
   );
 }

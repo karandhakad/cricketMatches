@@ -8,7 +8,7 @@ function Cards(props) {
         <div className="scoreBox">
           {
             props.teamInfo.map((info,index,arr)=>{
-              return(
+              return( 
                   <div className='img' key={index}>
                      <img className="flag" src={arr[index].img} alt=""/>&emsp;<span>{arr[index].name}</span><br/><br/>
                   </div>

@@ -5,14 +5,17 @@
   box-sizing: border-box;
 }
 body {
-  background-color: black;
   font-family: "Roboto", sans-serif;
 }
 #box {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+  background-color: black;
+  padding: 0 0 60px 0;
 }
+/* ------------- */
+
 .main {
   min-width: 550px;
   max-width: 43vw;
@@ -90,6 +93,7 @@ tr {
   color: silver;
   font-size: 16px;
 }
+
 @media only screen and (max-width: 425px) {
   .main {
     width: 100vw;
@@ -113,3 +117,84 @@ tr {
     font-size: 5vw;
   }
 }
+
+/* ------------------------------------ */
+
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+.sidebar2
+{
+  margin-left: 205px;
+}
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+.sidebar a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+.content {
+  margin-left: 420px;
+  padding: 0 5px;
+  height: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+/* ----------------- */
+#country-box
+{
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: black;
+  padding: 40px 0;
+}
+.country-card
+{
+  width: 25%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px;
+}
+.country-flag
+{
+  max-width: 50px;
+  max-height: 50px;
+}
+
+
+
