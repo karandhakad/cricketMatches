@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 function CountryList() {
   const [countryList, setCountryList] = useState([])
+  // const hell = 0;
 
   useEffect(()=>
   {
